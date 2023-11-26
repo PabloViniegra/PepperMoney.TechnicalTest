@@ -34,3 +34,5 @@ The project follows some common design patterns:
 ### Testing the API
 Once the container is running, you can test the GET request:
 - Open your browser or API client and go to: `http://localhost:32770/api/v1/books`
+
+Once you have deploy the container locally, you can use the API in Swagger using the following link: [Swagger Link](http://localhost:32770/swagger/index.html)
