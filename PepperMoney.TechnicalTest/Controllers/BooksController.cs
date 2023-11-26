@@ -61,15 +61,19 @@ namespace PepperMoney.TechnicalTest.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(Book), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IResult AddBook([FromBody] BookDTO book)
+        public async Task<IResult> AddBook([FromBody] BookDTO book)
         {
             try
             {
                 if (book is null || string.IsNullOrEmpty(book.Title))
                     return Results.BadRequest(Constants.MESSAGE_BOOK_NULL);
 
-                _booksRepository.AddBook(book.Parse());
+                bool exists = await _booksRepository.AddBook(book.Parse());
+
+                if (!exists)
+                    throw new BookAlreadyExistsException(String.Format(Constants.EXCEPTION_BOOK_ALREADY_EXISTS, book.Title));
 
                 return Results.Created(string.Empty, book);
             }

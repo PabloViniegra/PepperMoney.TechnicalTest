@@ -7,7 +7,7 @@ namespace PepperMoney.TechnicalTest.Services
         Task<List<Book>> Get();
         Task<List<Book>> GetBooksByKey(string key);
         Task<Book> GetBook(int id);
-        void AddBook(Book book);
+        Task<bool> AddBook(Book book);
         void DeleteBook(Book book);
 
     }
