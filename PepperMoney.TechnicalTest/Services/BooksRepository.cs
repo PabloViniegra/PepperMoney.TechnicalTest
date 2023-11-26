@@ -12,19 +12,22 @@ namespace PepperMoney.TechnicalTest.Services
         }
 
         /// <summary>
-        /// Adds a book to the database.
+        /// Adds a book to the database if a book with the same title does not already exist.
         /// </summary>
         /// <param name="book">The book to be added.</param>
-        /// <exception cref="BookAlreadyExistsException">Thrown when a book with the same title already exists in the database.</exception>
-        public async void AddBook(Book book)
+        /// <returns>True if the book is added successfully, otherwise false if a book with the same title already exists.</returns>
+        public async Task<bool> AddBook(Book book)
         {
             using (var context = new BooksContext())
             {
+
                 if (context.Books.ToList().Any(b => b.Title.Equals(book.Title, StringComparison.CurrentCultureIgnoreCase)))
-                    throw new BookAlreadyExistsException(String.Format(Constants.EXCEPTION_BOOK_ALREADY_EXISTS, book.Title));
+                    return false;
+
 
                 context.Books.Add(book);
                 await context.SaveChangesAsync();
+                return true;
             }
         }
 
