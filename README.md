@@ -25,11 +25,11 @@ The project follows some common design patterns:
 ### Steps to Download and Run
 1. **Pull the Docker image:**
    ```bash
-   docker pull pabloviniegra/books_api:v1-release
+   docker pull pabloviniegra/books_api:v1
    
 2. **Run the Docker container:**
    ```bash
-   docker run --name books_api -p 32770:80 -d pabloviniegra/books_api:v1-release
+   docker run --name books_api -p 32770:80 -d pabloviniegra/books_api:v1
 
 ### Testing the API
 Once the container is running, you can test the GET request:
